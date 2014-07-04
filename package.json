@@ -1,0 +1,27 @@
+{
+  "name": "facet-core",
+  "version": "0.0.1",
+  "description": "Base or standard object that gets extended by the other facet modules",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/facet/core.git"
+  },
+  "keywords": [
+    "facet",
+    "facet-core",
+    "core"
+  ],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/facet/core/issues"
+  },
+  "homepage": "https://github.com/facet/core",
+  "dependencies": {
+    "eventemitter2": "^0.4.14"
+  }
+}
