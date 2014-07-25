@@ -22,7 +22,8 @@
   },
   "homepage": "https://github.com/facet/core",
   "dependencies": {
-    "underscore": "^1.6.0"
+    "underscore": "^1.6.0",
+    "promise": "^5.0.0"
   },
   "devDependencies": {
     "eventemitter2": "^0.4.14",
