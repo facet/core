@@ -1,4 +1,4 @@
-**This module is currently in alpha and not suitable for production use.**
+**This module is currently in beta and not suitable for production use.**
 
 # core
 
@@ -18,4 +18,18 @@ var ProductAPI = function ( options ){};
  * Product API inherits from Core API
  */
 util.inherits(ProductAPI, ApiCore);
+
+// query.conditions, query.fields, and query.options 
+// are regular mongoose queries
+var query = {
+  conditions: {name: 'Cool Item'},
+  fields: '',
+  options: {
+    lean: true
+  }
+}
+
+// FacetApiCore.find() is a wrapper for mongoose's find(), same 
+// with findOne(), create(), remove() and update()
+ProductAPI.find(query, successCb, errorCb);
 ```
