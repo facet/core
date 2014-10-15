@@ -4,7 +4,7 @@
   "description": "Base object that provides common functionality and gets extended by the other facet modules",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --require test/support/env --reporter dot --check-leaks test/"
+    "test": "mocha --require test/support/env --reporter spec --check-leaks test/"
   },
   "repository": {
     "type": "git",
