@@ -27,7 +27,9 @@
     "underscore": "^1.6.0"
   },
   "devDependencies": {
+    "chai": "^1.9.2",
     "eventemitter2": "^0.4.14",
-    "facet-intercom": "https://github.com/facet/intercom/tarball/master"
+    "facet-intercom": "^0.1.0",
+    "mocha": "^1.21.5"
   }
 }
