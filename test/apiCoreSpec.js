@@ -2,16 +2,17 @@ var util = require('util'),
   chai = require('chai'),
   expect = chai.expect,
   should = chai.should(),
-  ApiCore = require('..').ApiCore,
-  TestApiCore = require('./inc/test-api-core')
+  express = require('express'),
+  TestApiCore = require('./inc/test-api-core'),
   Intercom = require('facet-intercom');
 
 var appOptions = {
   intercom: new Intercom
 };
 
-// var apiCore = new ApiCore(appOptions);
-var testApiCore = new TestApiCore(appOptions);
+// var apiCore = new ApiCore( appOptions );
+var testApiCore = new TestApiCore( appOptions );
+var boundRouter = testApiCore.bindRoutes( express.Router() );
 
 describe('ApiCore', function() {
 
@@ -21,27 +22,32 @@ describe('ApiCore', function() {
         {
           verb: 'GET',
           route: '/:itemId',
-          emit: 'facet:item:findone'
+          emit: 'facet:item:findone',
+          processor: true
         },
         {
           verb: 'GET',
           route: '',
-          emit: 'facet:item:find'
+          emit: 'facet:item:find',
+          processor: true
         },
         {
           verb: 'POST',
           route: '',
-          emit: 'facet:item:create'
+          emit: 'facet:item:create',
+          processor: true
         },
         {
           verb: 'PUT',
           route: '/:itemId',
-          emit: 'facet:item:update'
+          emit: 'facet:item:update',
+          processor: true
         },
         {
           verb: 'DELETE',
           route: '/:itemId',
-          emit: 'facet:item:remove'
+          emit: 'facet:item:remove',
+          processor: true
         },
       ];
 

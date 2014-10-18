@@ -29,6 +29,7 @@
   "devDependencies": {
     "chai": "^1.9.2",
     "eventemitter2": "^0.4.14",
+    "express": "^4.9.8",
     "facet-intercom": "^0.1.0",
     "mocha": "^1.21.5"
   }

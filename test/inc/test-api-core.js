@@ -4,6 +4,7 @@ var util = require('util'),
   ApiCore = require('../..').ApiCore;
 
 var TestApiCore = function(options){
+  // call the parent constructor
   TestApiCore.super_.call(this, options);
 };
 
@@ -36,6 +37,29 @@ TestApiCore.prototype.setupRouterManifest = function () {
       remove: 'No data supplied for removing item.',
       removeMatch: 'No item was removed based on your criteria.'
     });
+};
+
+TestApiCore.prototype.registerEvents = function ( ) {
+  var _this = this;
+
+  this.intercom.on('facet:item:data', function handleitemData( data, nodeStack ) {
+    data.then( function( itemData ) {
+      if( null === itemData ){
+        _this.intercom.emit('facet:response:error', 404, 'item was not found.');
+      }
+      else {
+        _this.intercom.emit('facet:response:item:data', itemData);
+      }
+    },
+    function( err ) {
+      _this.intercom.emit('facet:response:error', 404, 'Error querying for item(s): ' + err.message);
+    }).end();
+  });
+  this.intercom.on( 'facet:item:find',     this.find.bind(this)    );
+  this.intercom.on( 'facet:item:findone',  this.findOne.bind(this) );
+  this.intercom.on( 'facet:item:create',   this.create.bind(this)  );
+  this.intercom.on( 'facet:item:update',   this.update.bind(this)  );
+  this.intercom.on( 'facet:item:remove',   this.remove.bind(this)  );
 };
 
 // export the main function
