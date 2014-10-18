@@ -17,6 +17,7 @@ TestApiCore.prototype.setupRouterManifest = function () {
     .setApiModelId('itemId')
     .setRouteBase('/items')
     .addRoutes([
+      { verb: 'GET',    route: '/custom',  emit: 'facet:item:custom' },  // GET a single item by id
       { verb: 'GET',    route: '/:itemId', emit: 'facet:item:findone' },  // GET a single item by id
       { verb: 'GET',    route: '',         emit: 'facet:item:find'    },  // GET an array of item objects 
       { verb: 'POST',   route: '',         emit: 'facet:item:create'  },  // POST new item

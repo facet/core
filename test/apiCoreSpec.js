@@ -21,6 +21,12 @@ describe('ApiCore', function() {
       var routes = [
         {
           verb: 'GET',
+          route: '/custom',
+          emit: 'facet:item:custom',
+          processor: true
+        },
+        {
+          verb: 'GET',
           route: '/:itemId',
           emit: 'facet:item:findone',
           processor: true

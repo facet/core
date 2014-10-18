@@ -4,23 +4,25 @@ var util = require('util'),
   should = chai.should(),
   express = require('express'),
   ConnectMiddleware = require('../lib/middleware/connect'),
-  Core = require('../lib/core'),
+  ApiCore = require('../lib/api-core'),
+  TestApiCore = require('./inc/test-api-core'),
   Intercom = require('facet-intercom');
 
 var appOptions = {
   intercom: new Intercom
 };
 
-var testCore = new Core(appOptions);
-var connectMiddleware = new ConnectMiddleware(testCore);
+var testApiCore = new TestApiCore( appOptions );
+var boundRouter = testApiCore.bindRoutes( express.Router() );
+var connectMiddleware = new ConnectMiddleware( testApiCore );
 
 describe('ConnectMiddleware', function() {
 
   describe('#constructor()', function(done) {
 
     it('should setup the instance correctly', function(done){
-      expect(connectMiddleware.apiCore).to.deep.equal(testCore);
-      expect(connectMiddleware.apiCore).to.be.an.instanceof(Core);
+      expect(connectMiddleware.apiCore).to.deep.equal(testApiCore);
+      expect(connectMiddleware.apiCore).to.be.an.instanceof(ApiCore);
       done();
     }); 
 
@@ -31,7 +33,7 @@ describe('ConnectMiddleware', function() {
     var nextWasCalled = false;
 
     it('should return a function', function(done){
-      expect(connectMiddleware.facetInitBuilder(testCore)).to.be.a('function');
+      expect(connectMiddleware.facetInitBuilder(testApiCore)).to.be.a('function');
       done();
     });
 
@@ -45,12 +47,12 @@ describe('ConnectMiddleware', function() {
         },
         next: function(){ nextWasCalled = true }
       };
-      testCore.intercom.on('facet:init:nodestack', function(nodeStack){
+      testApiCore.intercom.on('facet:init:nodestack', function(nodeStack){
         expect(nodeStack).to.be.a('object');
         expect(nodeStack).to.deep.equal(testNodeStack);
         done();  
       });
-      connectMiddleware.facetInitBuilder(testCore)(testNodeStack.req,testNodeStack.res,testNodeStack.next);
+      connectMiddleware.facetInitBuilder(testApiCore)(testNodeStack.req,testNodeStack.res,testNodeStack.next);
     }); 
 
     it('should call next() in the returned function', function(done){
@@ -60,7 +62,36 @@ describe('ConnectMiddleware', function() {
 
   });
 
-  
+  describe('#routeVerbGET()', function(done) {
+
+    var nextWasCalled = false;
+
+    it('should return a function', function(done){
+      expect(connectMiddleware.routeVerbGET(testApiCore)).to.be.a('function');
+      done();
+    });
+
+    it('should emit an event for the GET method as a processor', function(done){
+      var testNodeStack = {
+        req: {
+          method: 'GET',
+          route: {
+            path: '/items/custom'
+          }
+        },
+        res: {
+          test1: 'test1'
+        },
+        next: function(){ nextWasCalled = true }
+      };
+      testApiCore.intercom.on('facet:item:custom', function(query){
+        expect(query).to.be.a('object');
+        done();  
+      });
+      connectMiddleware.routeVerbGET(testApiCore)(testNodeStack.req,testNodeStack.res,testNodeStack.next);
+    }); 
+
+  });
 
   describe('#getRequestVariables()', function(done) {
     var testNodeStack = {
