@@ -21,8 +21,8 @@ describe('ConnectMiddleware', function() {
   describe('#constructor()', function(done) {
 
     it('should setup the instance correctly', function(done){
-      expect(connectMiddleware.apiCore).to.deep.equal(testApiCore);
-      expect(connectMiddleware.apiCore).to.be.an.instanceof(ApiCore);
+      expect(connectMiddleware.core).to.deep.equal(testApiCore);
+      expect(connectMiddleware.core).to.be.an.instanceof(ApiCore);
       done();
     }); 
 
@@ -62,12 +62,12 @@ describe('ConnectMiddleware', function() {
 
   });
 
-  describe('#routeVerbGET()', function(done) {
+  describe('#routeVerbHandler()', function(done) {
 
     var nextWasCalled = false;
 
     it('should return a function', function(done){
-      expect(connectMiddleware.routeVerbGET(testApiCore)).to.be.a('function');
+      expect(connectMiddleware.routeVerbHandler(testApiCore)).to.be.a('function');
       done();
     });
 
@@ -88,7 +88,7 @@ describe('ConnectMiddleware', function() {
         expect(query).to.be.a('object');
         done();  
       });
-      connectMiddleware.routeVerbGET(testApiCore)(testNodeStack.req,testNodeStack.res,testNodeStack.next);
+      connectMiddleware.routeVerbHandler(testApiCore)(testNodeStack.req,testNodeStack.res,testNodeStack.next);
     }); 
 
   });
