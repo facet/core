@@ -3,6 +3,7 @@ var util = require('util'),
   expect = chai.expect,
   should = chai.should(),
   express = require('express'),
+  request = require('supertest'),
   ConnectMiddleware = require('../lib/middleware/connect'),
   ApiCore = require('../lib/api-core'),
   TestApiCore = require('./inc/test-api-core'),
@@ -62,6 +63,67 @@ describe('ConnectMiddleware', function() {
 
   });
 
+  describe('#getRouterBinder()', function(done) {
+
+    var nextWasCalled = false,
+      routerBinder = connectMiddleware.getRouterBinder(testApiCore);
+
+    it('should return a function', function(done){
+      expect(routerBinder).to.be.a('function');
+      done();
+    });
+
+    // it('should bind a route to the VERB method as a processor', function(done){
+
+    //   var TestRouter = function(options){
+    //     // call the parent constructor
+    //     TestRouter.super_.call(this, options);
+    //   };
+
+    //   util.inherits(TestRouter, ApiCore);
+
+    //   TestRouter.prototype.setupRouterManifest = function () {
+    //     // setup the router manifest
+    //     this.routerManifest
+    //       .setApiEventType('item')
+    //       .setApiModelId('itemId')
+    //       .setRouteBase('/items')
+    //       .addRoutes([]);
+    //   };
+
+    //   var testRouter = new TestRouter( appOptions );
+
+    //   var app = express(),
+    //     routeSetting = {
+    //       verb: 'GET',
+    //       route: '/items/test',
+    //       emit: 'facet:item:test'
+    //     },
+    //     uniqueRouteKey = routeSetting.verb + '::' + routeSetting.route;
+
+    //   // setup the tracking
+    //   testRouter._routeEventTracker[uniqueRouteKey] = routeSetting;
+
+    //   // bind the event
+    //   testRouter.intercom.on(routeSetting.emit, function(nodeStack){
+    //     console.log(arguments);
+    //     done();  
+    //   });
+
+    //   // add the route to the router
+    //   routerBinder(boundRouter,routeSetting.verb.toLowerCase(),routeSetting.route);
+
+    //   // console.log(util.inspect(boundRouter, { showHidden: true, depth: 1, colors: true }));
+
+    //   // use the router in the app
+    //   app.use('/api/v1', boundRouter);
+
+    //   // test the request
+    //   request(app).get('/api/v1/items/test').expect(200, '', done);
+    // }); 
+
+  });
+
   describe('#routeVerbHandler()', function(done) {
 
     var nextWasCalled = false;
@@ -71,7 +133,7 @@ describe('ConnectMiddleware', function() {
       done();
     });
 
-    it('should emit an event for the GET method as a processor', function(done){
+    it('should emit an event for the VERB method as a processor', function(done){
       var testNodeStack = {
         req: {
           method: 'GET',
