@@ -9,6 +9,7 @@ Base object that provides common functionality and gets extended by the other fa
 * Built in CRUD functionality via find, findOne, create, update, delete functions for any resource you create
 * Management of event bus (aka [Intercom](https://github.com/facet/intercom)) used for decoupled module communication
 
+test
 
 ## Example
 
