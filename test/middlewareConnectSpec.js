@@ -73,6 +73,8 @@ describe('ConnectMiddleware', function() {
       done();
     });
 
+    // TODO: Make this work..
+    // 
     // it('should bind a route to the VERB method as a processor', function(done){
 
     //   var TestRouter = function(options){

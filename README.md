@@ -1,8 +1,13 @@
-**This module is currently in beta and not suitable for production use.**
+<p align="center"><img src="https://raw.github.com/facet/facet.github.io/master/images/facet-logo-horizontal.png" /></p>
 
-# core
+# Facet Core
 
-Base object that provides common functionality and gets extended by the other facet modules
+Base object that provides common functionality and gets extended by the other facet modules. Core offers access to the following functionality:
+
+* Abstration of middleware specific code for framework agnostic use
+* Handling of request/response lifecycle
+* Built in CRUD functionality via find, findOne, create, update, delete functions for any resource you create
+* Management of event bus (aka [Intercom](https://github.com/facet/intercom)) used for decoupled module communication
 
 
 ## Example
