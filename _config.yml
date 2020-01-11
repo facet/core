@@ -1,2 +1,8 @@
 markdown: kramdown
 path: http://facet.github.io
+
+title: Facet Core
+description: Base object that provides common functionality and gets extended by the other facet modules.
+google_analytics: UA-52060208-1
+show_downloads: true
+theme: jekyll-theme-minimal
